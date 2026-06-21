@@ -1,18 +1,21 @@
 <script setup>
-const cartList = [];
-import { useCartStore } from "@/stores/cartStore";
-const cartStore = useCartStore();
+const cartList = []
+import { useCartStore } from '@/stores/cartStore'
+const cartStore = useCartStore()
 // 单选框回调
 const singleCheck = (i, selected) => {
   // store cartList 数组 无法知道要修改谁的选中状态？
   // 除了selected补充一个用来筛选的参数 - (i.skuId)
-  console.log(i, selected);
-  cartStore.singleCheck(i.skuId, selected);
-};
+  console.log(i, selected)
+  cartStore.singleCheck(i.skuId, selected)
+}
 // 多选框
-const checkAll = (selected) => {
-  cartStore.checkAll(selected);
-};
+const checkAll = selected => {
+  cartStore.checkAll(selected)
+}
+// const goHome = () => {
+//   $router.push("/");
+// };
 </script>
 
 <template>
@@ -24,7 +27,7 @@ const checkAll = (selected) => {
             <tr>
               <!-- 多选框 -->
               <th width="120">
-                <el-checkbox :model-value="cartStore.isAll" @change="(value) => checkAll(value)" />
+                <el-checkbox :model-value="cartStore.isAll" @change="value => checkAll(value)" />
               </th>
               <th width="400">商品信息</th>
               <th width="220">单价</th>
@@ -40,7 +43,7 @@ const checkAll = (selected) => {
                 <!-- 单选框 -->
                 <el-checkbox
                   :model-value="i.selected"
-                  @change="(selected) => singleCheck(i, selected)"
+                  @change="selected => singleCheck(i, selected)"
                 />
               </td>
               <td>
@@ -81,7 +84,7 @@ const checkAll = (selected) => {
               <td colspan="6">
                 <div class="cart-none">
                   <el-empty description="购物车列表为空">
-                    <el-button type="primary">随便逛逛</el-button>
+                    <el-button type="primary" @click="$router.push('/')">随便逛逛</el-button>
                   </el-empty>
                 </div>
               </td>
@@ -227,6 +230,21 @@ const checkAll = (selected) => {
     font-size: 16px;
     font-weight: normal;
     line-height: 50px;
+  }
+}
+
+html.dark .xtx-cart-page {
+  .cart {
+    background: #1e293b;
+    color: #e4e4e4;
+  }
+
+  .cart-none {
+    background: #1e293b;
+  }
+
+  .action {
+    background: #1e293b;
   }
 }
 </style>

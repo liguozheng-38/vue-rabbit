@@ -1,4 +1,4 @@
-import request from "@/utils/http";
+import request from '@/utils/http'
 /**
  * 获取结算信息
  */
@@ -6,15 +6,15 @@ import request from "@/utils/http";
 // 获取详情接口
 export const getCheckoutInfoAPI = () => {
   return request({
-    url: "/member/order/pre",
-  });
-};
+    url: '/member/order/pre'
+  })
+}
 
 // 生成订单接口
-export const createOrderAPI = (data) => {
+export const createOrderAPI = data => {
   return request({
-    url: "/member/order",
-    method: "POST",
-    data,
-  });
-};
+    url: '/member/order',
+    method: 'POST',
+    data
+  })
+}

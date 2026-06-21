@@ -1,10 +1,10 @@
 <script setup>
 // vueUse的使用
-import { useScroll } from "@vueuse/core";
-import { useCategoryStore } from "@/stores/categoryStore";
+import { useScroll } from '@vueuse/core'
+import { useCategoryStore } from '@/stores/categoryStore'
 
-const { y } = useScroll(window);
-const categoryStore = useCategoryStore();
+const { y } = useScroll(window)
+const categoryStore = useCategoryStore()
 </script>
 
 <template>
@@ -38,6 +38,7 @@ const categoryStore = useCategoryStore();
   z-index: 999;
   background-color: #fff;
   border-bottom: 1px solid #e4e4e4;
+  transition: all 0.3s;
   // 此处为关键样式!!!
   // 状态一：往上平移自身高度 + 完全透明
   transform: translateY(-100%);
@@ -58,7 +59,7 @@ const categoryStore = useCategoryStore();
   .logo {
     width: 200px;
     height: 80px;
-    background: url("@/assets/images/logo.png") no-repeat right 2px;
+    background: url('@/assets/images/logo.png') no-repeat right 2px;
     background-size: 160px auto;
   }
 
@@ -80,35 +81,70 @@ const categoryStore = useCategoryStore();
       }
     }
   }
-}
 
-.app-header-nav {
-  width: 820px;
-  display: flex;
-  padding-left: 40px;
-  position: relative;
-  z-index: 998;
+  .app-header-nav {
+    width: 820px;
+    display: flex;
+    padding-left: 40px;
+    position: relative;
+    z-index: 998;
 
-  li {
-    margin-right: 40px;
-    width: 38px;
-    text-align: center;
+    li {
+      margin-right: 40px;
+      width: 38px;
+      text-align: center;
 
-    a {
-      font-size: 16px;
-      line-height: 32px;
-      height: 32px;
-      display: inline-block;
+      a {
+        font-size: 16px;
+        line-height: 32px;
+        height: 32px;
+        display: inline-block;
 
-      &:hover {
+        &:hover {
+          color: $xtxColor;
+          border-bottom: 1px solid $xtxColor;
+        }
+      }
+
+      .active {
         color: $xtxColor;
         border-bottom: 1px solid $xtxColor;
       }
     }
+  }
+}
 
-    .active {
-      color: $xtxColor;
-      border-bottom: 1px solid $xtxColor;
+.dark .app-header-sticky {
+  background-color: #16213e;
+  border-bottom-color: #333;
+
+  .app-header-nav {
+    li {
+      a {
+        color: #e4e4e4;
+
+        &:hover {
+          color: $xtxColor;
+          border-bottom-color: $xtxColor;
+        }
+      }
+
+      .active {
+        color: $xtxColor;
+        border-bottom-color: $xtxColor;
+      }
+    }
+  }
+
+  .right {
+    border-left-color: $xtxColor;
+
+    a {
+      color: #e4e4e4;
+
+      &:hover {
+        color: $xtxColor;
+      }
     }
   }
 }

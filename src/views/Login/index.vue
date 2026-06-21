@@ -1,59 +1,59 @@
 <script setup>
 // 表单校验（账号名+密码）
-import { ref } from "vue";
-import { ElMessage } from "element-plus";
-import "element-plus/theme-chalk/el-message.css";
-import { useRouter } from "vue-router";
-import { useUserStore } from "@/stores/userStore";
-const userStore = useUserStore();
+import { ref } from 'vue'
+import { ElMessage } from 'element-plus'
+import 'element-plus/theme-chalk/el-message.css'
+import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/userStore'
+const userStore = useUserStore()
 // 1. 准备表单对象
 const form = ref({
-  account: "",
-  password: "",
-  agree: false,
-});
+  account: '',
+  password: '',
+  agree: false
+})
 // 2. 准备规则对象
 const rules = {
-  account: [{ required: true, message: "用户名不能为空", trigger: "blur" }],
+  account: [{ required: true, message: '用户名不能为空', trigger: 'blur' }],
   password: [
-    { required: true, message: "密码不能为空", trigger: "blur" },
-    { min: 6, max: 14, message: "密码长度为6-14个字符", trigger: "blur" },
+    { required: true, message: '密码不能为空', trigger: 'blur' },
+    { min: 6, max: 14, message: '密码长度为6-14个字符', trigger: 'blur' }
   ],
   agree: [
     {
       validator: (rule, value, callback) => {
         // 自定义校验逻辑
         // 勾选就通过 不勾选就不通过
-        console.log(value);
+        console.log(value)
         if (!value) {
-          callback(new Error("请同意隐私条款和服务条款"));
+          callback(new Error('请同意隐私条款和服务条款'))
         } else {
-          callback();
+          callback()
         }
-      },
-    },
-  ],
-};
-const router = useRouter();
+      }
+    }
+  ]
+}
+const router = useRouter()
 // 3. 获取form实例做统一校验
-const formRef = ref(null);
+const formRef = ref(null)
 const doLogin = () => {
-  const { account, password } = form.value;
+  const { account, password } = form.value
   // 调用实例方法
-  formRef.value.validate(async (valid) => {
-    console.log(valid);
+  formRef.value.validate(async valid => {
+    console.log(valid)
     // valid: 所有表单都通过校验  才为true
     if (valid) {
       // to de login
-      const res = await userStore.getUserInfo({ account, password });
-      console.log("@@@@@@@@@@@@@@", res);
+      const res = await userStore.getUserInfo({ account, password })
+      console.log('@@@@@@@@@@@@@@', res)
       // 1. 提示用户
-      ElMessage({ type: "success", message: "登录成功" });
+      ElMessage({ type: 'success', message: '登录成功' })
       // 2. 跳转首页
-      router.replace("/");
+      router.replace('/')
     }
-  });
-};
+  })
+}
 // 1. 用户名和密码 只需要通过简单的配置（看文档的方式 - 复杂功能通过多个不同组件拆解）
 // 2. 同意协议  自定义规则  validator:(rule,value,callback)=>{}
 // 3. 统一校验  通过调用form实例的方法 validate -> true
@@ -145,7 +145,7 @@ const doLogin = () => {
       height: 132px;
       width: 100%;
       text-indent: -9999px;
-      background: url("@/assets/images/logo.png") no-repeat center 18px / contain;
+      background: url('@/assets/images/logo.png') no-repeat center 18px / contain;
     }
   }
 
@@ -172,7 +172,7 @@ const doLogin = () => {
 }
 
 .login-section {
-  background: url("@/assets/images/login-bg.png") no-repeat center / cover;
+  background: url('@/assets/images/login-bg.png') no-repeat center / cover;
   height: 488px;
   position: relative;
 

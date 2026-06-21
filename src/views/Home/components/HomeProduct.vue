@@ -1,39 +1,65 @@
 <script setup>
-import HomePanel from "./HomePanel.vue";
-import { ref, onMounted } from "vue";
-import { getGoodsAPI } from "@/apis/home";
-import GoodsItem from "./GoodsItem.vue";
+import HomePanel from './HomePanel.vue'
+import { ref, onMounted } from 'vue'
+import { getGoodsAPI } from '@/apis/home'
+import GoodsItem from './GoodsItem.vue'
 // 获取数据列表
-const goodsProduct = ref([]);
-const getGoodsProduct = async () => {
-  const res = await getGoodsAPI();
-  console.log(res);
-  goodsProduct.value = res.result;
-};
+const goodsProduct = ref([])
+const loading = ref(true)
 
-onMounted(() => getGoodsProduct());
+const getGoodsProduct = async () => {
+  loading.value = true
+  const res = await getGoodsAPI()
+  console.log(res)
+  goodsProduct.value = res.result
+  loading.value = false
+}
+
+onMounted(() => getGoodsProduct())
 </script>
 
 <template>
   <div class="home-product">
-    <HomePanel :title="cate.name" v-for="cate in goodsProduct" :key="cate.id">
-      <template #main>
-        <div class="box">
-          <RouterLink class="cover" to="/">
-            <img v-img-lazy="cate.picture" />
-            <strong class="label">
-              <span>{{ cate.name }}</span>
-              <span>{{ cate.saleInfo }}</span>
-            </strong>
-          </RouterLink>
-          <ul class="goods-list">
-            <li v-for="good in cate.goods" :key="good.id">
-              <GoodsItem :goods="good" />
-            </li>
-          </ul>
+    <el-skeleton :loading="loading" animated>
+      <template #template>
+        <div class="skeleton-wrapper">
+          <HomePanel title="商品推荐">
+            <template #main>
+              <div class="box">
+                <el-skeleton-item variant="image" style="width: 240px; height: 610px" />
+                <div class="skeleton-goods">
+                  <div v-for="i in 8" :key="i" class="skeleton-item">
+                    <el-skeleton-item variant="image" style="width: 240px; height: 200px" />
+                    <el-skeleton-item variant="text" style="width: 80%; margin-top: 12px" />
+                    <el-skeleton-item variant="text" style="width: 50%; margin-top: 8px" />
+                  </div>
+                </div>
+              </div>
+            </template>
+          </HomePanel>
         </div>
       </template>
-    </HomePanel>
+      <template #default>
+        <HomePanel :title="cate.name" v-for="cate in goodsProduct" :key="cate.id">
+          <template #main>
+            <div class="box">
+              <RouterLink class="cover" to="/">
+                <img v-img-lazy="cate.picture" />
+                <strong class="label">
+                  <span>{{ cate.name }}</span>
+                  <span>{{ cate.saleInfo }}</span>
+                </strong>
+              </RouterLink>
+              <ul class="goods-list">
+                <li v-for="good in cate.goods" :key="good.id">
+                  <GoodsItem :goods="good" />
+                </li>
+              </ul>
+            </div>
+          </template>
+        </HomePanel>
+      </template>
+    </el-skeleton>
   </div>
 </template>
 
@@ -41,6 +67,7 @@ onMounted(() => getGoodsProduct());
 .home-product {
   background: #fff;
   margin-top: 20px;
+
   .sub {
     margin-bottom: 2px;
 
@@ -124,5 +151,9 @@ onMounted(() => getGoodsProduct());
       }
     }
   }
+}
+
+html.dark .home-product {
+  background: #1e293b;
 }
 </style>

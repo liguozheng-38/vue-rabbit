@@ -1,26 +1,37 @@
 <script setup>
-import { getBannerAPI } from "@/apis/home";
-import { ref, onMounted } from "vue";
-import { useRoute } from "vue-router";
+import { getBannerAPI } from '@/apis/home'
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 
-const bannerList = ref([]);
+const bannerList = ref([])
+const loading = ref(true)
+
 const getBanner = async () => {
-  const route = useRoute();
-  const res = await getBannerAPI({ distributionSite: route.params.distributionSite });
+  loading.value = true
+  const route = useRoute()
+  const res = await getBannerAPI({ distributionSite: route.params.distributionSite })
   // console.log(res);
-  bannerList.value = res.result;
-};
+  bannerList.value = res.result
+  loading.value = false
+}
 
-onMounted(() => getBanner());
+onMounted(() => getBanner())
 </script>
 
 <template>
   <div class="home-banner">
-    <el-carousel height="500px">
-      <el-carousel-item v-for="item in bannerList" :key="item.id">
-        <img :src="item.imgUrl" alt="" />
-      </el-carousel-item>
-    </el-carousel>
+    <el-skeleton :loading="loading" animated>
+      <template #template>
+        <el-skeleton-item variant="image" style="width: 1240px; height: 500px" />
+      </template>
+      <template #default>
+        <el-carousel height="500px">
+          <el-carousel-item v-for="item in bannerList" :key="item.id">
+            <img :src="item.imgUrl" alt="" />
+          </el-carousel-item>
+        </el-carousel>
+      </template>
+    </el-skeleton>
   </div>
 </template>
 

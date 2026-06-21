@@ -1,64 +1,78 @@
 <script setup>
-import { getCategoryFilterAPI, getSubCategoryAPI } from "@/apis/category";
-import { useRoute } from "vue-router";
-import { onMounted, ref } from "vue";
-import GoodsItem from "@/views/Home/components/GoodsItem.vue";
+import { getCategoryFilterAPI, getSubCategoryAPI } from '@/apis/category'
+import { useRoute } from 'vue-router'
+import { onMounted, ref } from 'vue'
+import GoodsItem from '@/views/Home/components/GoodsItem.vue'
 // 获取面包屑导航数据
-const filterData = ref({});
-const route = useRoute();
-const getFilterData = async () => {
-  const res = await getCategoryFilterAPI(route.params.id);
-  filterData.value = res.result;
-};
-onMounted(() => getFilterData());
+const filterData = ref({})
+const route = useRoute()
+const filterLoading = ref(true)
 
-const GoodsList = ref([]);
+const getFilterData = async () => {
+  filterLoading.value = true
+  const res = await getCategoryFilterAPI(route.params.id)
+  filterData.value = res.result
+  filterLoading.value = false
+}
+onMounted(() => getFilterData())
+
+const GoodsList = ref([])
+const goodsLoading = ref(true)
 const reqData = ref({
   categoryId: route.params.id,
   page: 1,
   pageSize: 20,
-  sortField: "publishTime",
-});
+  sortField: 'publishTime'
+})
 const getGoodsList = async () => {
-  const res = await getSubCategoryAPI(reqData.value);
+  goodsLoading.value = true
+  const res = await getSubCategoryAPI(reqData.value)
   // console.log("@@@@@@@@@@@@", res);
-  GoodsList.value = res.result.items;
-};
-onMounted(() => getGoodsList());
+  GoodsList.value = res.result.items
+  goodsLoading.value = false
+}
+onMounted(() => getGoodsList())
 
 // tab切换
 const tabChange = () => {
-  console.log("tab栏切换了", reqData.value.sortField);
-  reqData.value.page = 1;
-  getGoodsList();
-};
+  console.log('tab栏切换了', reqData.value.sortField)
+  reqData.value.page = 1
+  getGoodsList()
+}
 
 // 加载更多
-const disabled = ref(false);
+const disabled = ref(false)
 const load = async () => {
   // 获取下一页的数据
-  reqData.value.page++;
-  const res = await getSubCategoryAPI(reqData.value);
+  reqData.value.page++
+  const res = await getSubCategoryAPI(reqData.value)
   // 无限加载的实现
-  GoodsList.value = [...GoodsList.value, ...res.result.items];
+  GoodsList.value = [...GoodsList.value, ...res.result.items]
   // 加载完毕 停止监听
   if (res.result.items.length === 0) {
-    disabled.value = true;
+    disabled.value = true
   }
-};
+}
 </script>
 
 <template>
   <div class="container">
     <!-- 面包屑 -->
     <div class="bread-container">
-      <el-breadcrumb separator=">">
-        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: `/category/${filterData.parentId}` }"
-          >{{ filterData.parentName }}
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>{{ filterData.name }}</el-breadcrumb-item>
-      </el-breadcrumb>
+      <el-skeleton :loading="filterLoading" animated>
+        <template #template>
+          <el-skeleton-item variant="text" style="width: 300px" />
+        </template>
+        <template #default>
+          <el-breadcrumb separator=">">
+            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: `/category/${filterData.parentId}` }"
+              >{{ filterData.parentName }}
+            </el-breadcrumb-item>
+            <el-breadcrumb-item>{{ filterData.name }}</el-breadcrumb-item>
+          </el-breadcrumb>
+        </template>
+      </el-skeleton>
     </div>
     <div class="sub-container">
       <el-tabs v-model="reqData.sortField" @tab-change="tabChange">
@@ -66,10 +80,23 @@ const load = async () => {
         <el-tab-pane label="最高人气" name="orderNum"></el-tab-pane>
         <el-tab-pane label="评论最多" name="evaluateNum"></el-tab-pane>
       </el-tabs>
-      <div class="body" v-infinite-scroll="load" :infinite-scroll-disabled="disabled">
-        <!-- 商品列表-->
-        <GoodsItem v-for="good in GoodsList" :goods="good" :key="good.id" />
-      </div>
+      <el-skeleton :loading="goodsLoading" animated>
+        <template #template>
+          <div class="body skeleton-body">
+            <div v-for="i in 8" :key="i" class="skeleton-item">
+              <el-skeleton-item variant="image" style="width: 160px; height: 160px" />
+              <el-skeleton-item variant="text" style="width: 80%; margin-top: 10px" />
+              <el-skeleton-item variant="text" style="width: 50%; margin-top: 8px" />
+            </div>
+          </div>
+        </template>
+        <template #default>
+          <div class="body" v-infinite-scroll="load" :infinite-scroll-disabled="disabled">
+            <!-- 商品列表-->
+            <GoodsItem v-for="good in GoodsList" :goods="good" :key="good.id" />
+          </div>
+        </template>
+      </el-skeleton>
     </div>
   </div>
 </template>

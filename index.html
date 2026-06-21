@@ -4,6 +4,24 @@
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; worker-src blob:; style-src 'self' 'unsafe-inline' https://at.alicdn.com; img-src 'self' data: https: http://yjy-xiaotuxian-dev.oss-cn-beijing.aliyuncs.com; font-src 'self' https://at.alicdn.com data:; connect-src 'self' https://pcapi-xiaotuxian-front-devtest.itheima.net; object-src 'none'; base-uri 'self';"
+    />
+
+    <!-- 1. 关键资源预加载（优先加载）-->
+    <link rel="preload" href="https://at.alicdn.com/t/font_2143783_iq6z4ey5vu.css" as="style" />
+
+    <!-- 2. DNS预解析（提前解析域名）-->
+    <link rel="dns-prefetch" href="https://at.alicdn.com" />
+    <link rel="dns-prefetch" href="https://pcapi-xiaotuxian-front-devtest.itheima.net" />
+    <link rel="dns-prefetch" href="https://yjy-xiaotuxian-dev.oss-cn-beijing.aliyuncs.com" />
+
+    <!-- 3. 资源预连接（提前建立TCP/TLS连接）-->
+    <link rel="preconnect" href="https://at.alicdn.com" crossorigin />
+    <link rel="preconnect" href="https://pcapi-xiaotuxian-front-devtest.itheima.net" />
+    <link rel="preconnect" href="https://yjy-xiaotuxian-dev.oss-cn-beijing.aliyuncs.com" />
+
     <title>小兔鲜</title>
     <!-- <link rel="stylesheet" href="https://at.alicdn.com/t/font_2143783_iq6z4ey5vu.css" /> -->
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_2143783_iq6z4ey5vu.css" />

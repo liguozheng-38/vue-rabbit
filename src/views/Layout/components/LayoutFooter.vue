@@ -1,5 +1,5 @@
 <template>
-  <footer class="app_footer">
+  <footer class="app_footer" id="footer">
     <!-- 联系我们 -->
     <div class="contact">
       <div class="container">
@@ -64,114 +64,123 @@
 </template>
 
 <style scoped lang="scss">
-  .app_footer {
-    overflow: hidden;
-    background-color: #f5f5f5;
-    padding-top: 20px;
+.app_footer {
+  overflow: hidden;
+  background-color: #f5f5f5;
+  padding-top: 20px;
+  transition: background-color 0.3s;
 
-    .contact {
-      background: #fff;
+  .contact {
+    background: #fff;
+    transition: background-color 0.3s;
 
-      .container {
-        padding: 60px 0 40px 25px;
-        display: flex;
+    .container {
+      padding: 60px 0 40px 25px;
+      display: flex;
+    }
+
+    dl {
+      height: 190px;
+      text-align: center;
+      padding: 0 72px;
+      border-right: 1px solid #f2f2f2;
+      color: #999;
+      transition:
+        border-color 0.3s,
+        color 0.3s;
+
+      &:first-child {
+        padding-left: 0;
       }
 
-      dl {
-        height: 190px;
-        text-align: center;
-        padding: 0 72px;
-        border-right: 1px solid #f2f2f2;
-        color: #999;
-
-        &:first-child {
-          padding-left: 0;
-        }
-
-        &:last-child {
-          border-right: none;
-          padding-right: 0;
-        }
+      &:last-child {
+        border-right: none;
+        padding-right: 0;
       }
+    }
 
-      dt {
-        line-height: 1;
-        font-size: 18px;
-      }
+    dt {
+      line-height: 1;
+      font-size: 18px;
+    }
 
-      dd {
-        margin: 36px 12px 0 0;
-        float: left;
-        width: 92px;
-        height: 92px;
-        padding-top: 10px;
-        border: 1px solid #ededed;
+    dd {
+      margin: 36px 12px 0 0;
+      float: left;
+      width: 92px;
+      height: 92px;
+      padding-top: 10px;
+      border: 1px solid #ededed;
+      transition: border-color 0.3s;
 
-        .iconfont {
-          font-size: 36px;
-          display: block;
-          color: #666;
-        }
-
-        &:hover {
-          .iconfont {
-            color: $xtxColor;
-          }
-        }
-
-        &:last-child {
-          margin-right: 0;
-        }
-      }
-
-      .qrcode {
-        width: 92px;
-        height: 92px;
-        padding: 7px;
-        border: 1px solid #ededed;
-      }
-
-      .download {
-        padding-top: 5px;
-        font-size: 14px;
-        width: auto;
-        height: auto;
-        border: none;
-
-        span {
-          display: block;
-        }
-
-        a {
-          display: block;
-          line-height: 1;
-          padding: 10px 25px;
-          margin-top: 5px;
-          color: #fff;
-          border-radius: 2px;
-          background-color: $xtxColor;
-        }
-      }
-
-      .hotline {
-        padding-top: 20px;
-        font-size: 22px;
+      .iconfont {
+        font-size: 36px;
+        display: block;
         color: #666;
-        width: auto;
-        height: auto;
-        border: none;
+        transition: color 0.3s;
+      }
 
-        small {
-          display: block;
-          font-size: 15px;
-          color: #999;
+      &:hover {
+        .iconfont {
+          color: $xtxColor;
         }
+      }
+
+      &:last-child {
+        margin-right: 0;
       }
     }
 
-    .extra {
-      background-color: #333;
+    .qrcode {
+      width: 92px;
+      height: 92px;
+      padding: 7px;
+      border: 1px solid #ededed;
     }
+
+    .download {
+      padding-top: 5px;
+      font-size: 14px;
+      width: auto;
+      height: auto;
+      border: none;
+
+      span {
+        display: block;
+      }
+
+      a {
+        display: block;
+        line-height: 1;
+        padding: 10px 25px;
+        margin-top: 5px;
+        color: #fff;
+        border-radius: 2px;
+        background-color: $xtxColor;
+      }
+    }
+
+    .hotline {
+      padding-top: 20px;
+      font-size: 22px;
+      color: #666;
+      width: auto;
+      height: auto;
+      border: none;
+      transition: color 0.3s;
+
+      small {
+        display: block;
+        font-size: 15px;
+        color: #999;
+        transition: color 0.3s;
+      }
+    }
+  }
+
+  .extra {
+    background-color: #333;
+    transition: background-color 0.3s;
 
     .slogan {
       height: 178px;
@@ -225,4 +234,47 @@
       }
     }
   }
+}
+
+.dark .app_footer {
+  background-color: #0f172b;
+
+  .contact {
+    background: #16213e;
+
+    dl {
+      border-right-color: #333;
+      color: #999;
+
+      .iconfont {
+        color: #aaa;
+      }
+    }
+
+    .hotline {
+      color: #e4e4e4;
+
+      small {
+        color: #999;
+      }
+    }
+  }
+
+  .extra {
+    background-color: #1a1a2e;
+
+    .slogan {
+      border-bottom-color: #333;
+    }
+
+    .copyright {
+      color: #999;
+
+      a {
+        color: #999;
+        border-right-color: #999;
+      }
+    }
+  }
+}
 </style>

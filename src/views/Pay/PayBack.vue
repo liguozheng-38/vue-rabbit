@@ -1,18 +1,18 @@
 <script setup>
-import { useRoute } from "vue-router";
-import { getOrderAPI } from "@/apis/pay";
-import { ref, onMounted } from "vue";
+import { useRoute } from 'vue-router'
+import { getOrderAPI } from '@/apis/pay'
+import { ref, onMounted } from 'vue'
 
-const orderInfo = ref({});
-const route = useRoute();
+const orderInfo = ref({})
+const route = useRoute()
 
 const getOrderInfo = async () => {
-  const res = await getOrderAPI(route.query.id);
-  orderInfo.value = res.result;
-};
+  const res = await getOrderAPI(route.query.id)
+  orderInfo.value = res.result
+}
 onMounted(() => {
-  getOrderInfo();
-});
+  getOrderInfo()
+})
 </script>
 
 <template>
@@ -23,7 +23,7 @@ onMounted(() => {
         <!-- 路由参数获取到的是字符串而不是布尔值 -->
         <span class="iconfont icon-queren2 green" v-if="route.query.payResult === 'true'"></span>
         <span class="iconfont icon-shanchu red" v-else></span>
-        <p class="tit">支付`{{ route.query.payResult === "true" ? "成功" : "失败" }}`</p>
+        <p class="tit">支付`{{ route.query.payResult === 'true' ? '成功' : '失败' }}`</p>
         <p class="tip">我们将尽快为您发货，收货期间请保持手机畅通</p>
         <p>支付方式：<span>支付宝</span></p>
         <p>

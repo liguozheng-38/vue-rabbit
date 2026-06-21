@@ -1,12 +1,12 @@
-import request from "@/utils/http";
+import request from '@/utils/http'
 
 export function getCategoryAPI(id) {
   return request({
-    url: "/category",
+    url: '/category',
     params: {
-      id,
-    },
-  });
+      id
+    }
+  })
 }
 
 /**
@@ -15,14 +15,14 @@ export function getCategoryAPI(id) {
  * @return {*}
  */
 
-export const getCategoryFilterAPI = (id) => {
+export const getCategoryFilterAPI = id => {
   return request({
-    url: "/category/sub/filter",
+    url: '/category/sub/filter',
     params: {
-      id,
-    },
-  });
-};
+      id
+    }
+  })
+}
 
 /**
  * @description: 获取导航数据
@@ -34,10 +34,10 @@ export const getCategoryFilterAPI = (id) => {
    } 
  * @return {*}
  */
-export const getSubCategoryAPI = (data) => {
+export const getSubCategoryAPI = data => {
   return request({
-    url: "/category/goods/temporary",
-    method: "POST",
-    data,
-  });
-};
+    url: '/category/goods/temporary',
+    method: 'POST',
+    data
+  })
+}

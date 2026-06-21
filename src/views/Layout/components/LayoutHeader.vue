@@ -1,8 +1,8 @@
 <script setup>
-import { useCategoryStore } from "@/stores/categoryStore";
-import HeaderCart from "./HeaderCart.vue";
+import { useCategoryStore } from '@/stores/categoryStore'
+import HeaderCart from './HeaderCart.vue'
 
-const categoryStore = useCategoryStore();
+const categoryStore = useCategoryStore()
 </script>
 
 <template>
@@ -31,6 +31,7 @@ const categoryStore = useCategoryStore();
 <style scoped lang="scss">
 .app-header {
   background: #fff;
+  transition: background-color 0.3s;
 
   .container {
     display: flex;
@@ -45,7 +46,7 @@ const categoryStore = useCategoryStore();
       height: 132px;
       width: 100%;
       text-indent: -9999px;
-      background: url("@/assets/images/logo.png") no-repeat center 18px / contain;
+      background: url('@/assets/images/logo.png') no-repeat center 18px / contain;
     }
   }
 
@@ -86,6 +87,7 @@ const categoryStore = useCategoryStore();
     position: relative;
     border-bottom: 1px solid #e7e7e7;
     line-height: 32px;
+    transition: border-color 0.3s;
 
     .icon-search {
       font-size: 18px;
@@ -96,6 +98,12 @@ const categoryStore = useCategoryStore();
       width: 140px;
       padding-left: 5px;
       color: #666;
+      transition: color 0.3s;
+
+      &::placeholder {
+        color: #999;
+        transition: color 0.3s;
+      }
     }
   }
 
@@ -125,6 +133,44 @@ const categoryStore = useCategoryStore();
         font-size: 12px;
         border-radius: 10px;
         font-family: Arial;
+      }
+    }
+  }
+}
+
+.dark .app-header {
+  background: #16213e;
+
+  .app-header-nav {
+    li {
+      a {
+        color: #e4e4e4;
+
+        &:hover {
+          color: $xtxColor;
+          border-bottom-color: $xtxColor;
+        }
+      }
+
+      .active {
+        color: $xtxColor;
+        border-bottom-color: $xtxColor;
+      }
+    }
+  }
+
+  .search {
+    border-bottom-color: #333;
+
+    .icon-search {
+      color: #e4e4e4;
+    }
+
+    input {
+      color: #e4e4e4;
+
+      &::placeholder {
+        color: #666;
       }
     }
   }

@@ -1,31 +1,30 @@
-import { fileURLToPath, URL } from "node:url";
-
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
-import AutoImport from "unplugin-auto-import/vite";
-import Components from "unplugin-vue-components/vite";
-import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
+import { fileURLToPath, URL } from 'node:url'
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 // 导入对应包
 // import ElementPlus from "unplugin-element-plus/vite";
-// import vueDevTools from "vite-plugin-vue-devtools";
+import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
-    // vueDevTools(),
+    vueDevTools(),
     AutoImport({
       // resolvers: [ElementPlusResolver()],
-      resolvers: [ElementPlusResolver({ importStyle: "sass" })],
+      resolvers: [ElementPlusResolver({ importStyle: 'sass' })]
     }),
     Components({
-      resolvers: [ElementPlusResolver({ importStyle: "sass" })],
-    }),
+      resolvers: [ElementPlusResolver({ importStyle: 'sass' })]
+    })
   ],
   resolve: {
     alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
-    },
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
   },
   css: {
     preprocessorOptions: {
@@ -34,8 +33,19 @@ export default defineConfig({
         additionalData: `
           @use "@/styles/element/index.scss" as *;
           @use "@/styles/var.scss" as *;
-        `,
-      },
-    },
+        `
+      }
+    }
   },
-});
+  server: {
+    proxy: {
+      // 匹配/api开头的请求
+      '/api': {
+        target: 'https://pcapi-xiaotuxian-front-devtest.itheima.net',
+        changeOrigin: true, // 开启跨域模拟源
+        rewrite: path => path.replace(/^\/api/, ''), // 去掉/api前缀
+        secure: true // 允许HTTPS请求
+      }
+    }
+  }
+})

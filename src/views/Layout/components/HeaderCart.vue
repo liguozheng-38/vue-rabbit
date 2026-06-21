@@ -1,6 +1,6 @@
 <script setup>
-import { useCartStore } from "@/stores/cartStore";
-const cartStore = useCartStore();
+import { useCartStore } from '@/stores/cartStore'
+const cartStore = useCartStore()
 </script>
 
 <template>
@@ -94,7 +94,7 @@ const cartStore = useCartStore();
     padding-top: 10px;
 
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       right: 14px;
       top: -10px;

@@ -1,61 +1,61 @@
 <script setup>
-import { getUserOrderAPI } from "@/apis/order";
-import { onMounted, ref } from "vue";
+import { getUserOrderAPI } from '@/apis/order'
+import { onMounted, ref } from 'vue'
 // 订单列表
-const orderList = ref([]);
-const total = ref(0);
+const orderList = ref([])
+const total = ref(0)
 const params = {
   orderState: 0,
   page: 1,
-  pageSize: 2,
-};
+  pageSize: 2
+}
 const getUserOrder = async () => {
-  const res = await getUserOrderAPI(params);
-  orderList.value = res.result.items;
-  total.value = res.result.counts;
-  console.log("@@@@@", orderList);
-};
+  const res = await getUserOrderAPI(params)
+  orderList.value = res.result.items
+  total.value = res.result.counts
+  console.log('@@@@@', orderList)
+}
 // tab列表
 const tabTypes = [
-  { name: "all", label: "全部订单" },
-  { name: "unpay", label: "待付款" },
-  { name: "deliver", label: "待发货" },
-  { name: "receive", label: "待收货" },
-  { name: "comment", label: "待评价" },
-  { name: "complete", label: "已完成" },
-  { name: "cancel", label: "已取消" },
-];
+  { name: 'all', label: '全部订单' },
+  { name: 'unpay', label: '待付款' },
+  { name: 'deliver', label: '待发货' },
+  { name: 'receive', label: '待收货' },
+  { name: 'comment', label: '待评价' },
+  { name: 'complete', label: '已完成' },
+  { name: 'cancel', label: '已取消' }
+]
 
 onMounted(() => {
-  getUserOrder();
-});
+  getUserOrder()
+})
 
 // tab切换
-const tabChange = (e) => {
-  console.log(e);
-  params.orderState = e;
+const tabChange = e => {
+  console.log(e)
+  params.orderState = e
   // tab切换优化，重置页码
-  params.page = 1;
-  getUserOrder();
-};
+  params.page = 1
+  getUserOrder()
+}
 
 // 页数切换
-const onPageChange = (page) => {
-  params.page = page;
-  getUserOrder();
-};
+const onPageChange = page => {
+  params.page = page
+  getUserOrder()
+}
 
-const fomartPayState = (payState) => {
+const fomartPayState = payState => {
   const stateMap = {
-    1: "待付款",
-    2: "待发货",
-    3: "待收货",
-    4: "待评价",
-    5: "已完成",
-    6: "已取消",
-  };
-  return stateMap[payState];
-};
+    1: '待付款',
+    2: '待发货',
+    3: '待收货',
+    4: '待评价',
+    5: '已完成',
+    6: '已取消'
+  }
+  return stateMap[payState]
+}
 </script>
 
 <template>

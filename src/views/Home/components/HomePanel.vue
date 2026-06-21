@@ -4,14 +4,14 @@ defineProps({
   // 主标题
   title: {
     type: String,
-    default: "",
+    default: ''
   },
   // 副标题
   subTitle: {
     type: String,
-    default: "",
-  },
-});
+    default: ''
+  }
+})
 </script>
 
 <template>
@@ -52,6 +52,14 @@ defineProps({
         margin-left: 20px;
       }
     }
+  }
+}
+
+html.dark .home-panel {
+  background-color: #1e293b;
+
+  .head h3 small {
+    color: #aaa;
   }
 }
 </style>

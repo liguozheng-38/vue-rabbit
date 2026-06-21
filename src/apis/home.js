@@ -3,7 +3,7 @@
  * @param {*}
  * @return {*}
  */
-import httpInstance from "@/utils/http";
+import httpInstance from '@/utils/http'
 // export function getBannerAPI() {
 //   return httpInstance({
 //     url: "home/banner",
@@ -11,13 +11,13 @@ import httpInstance from "@/utils/http";
 // }
 export function getBannerAPI(params = {}) {
   // 默认为1 商品为2
-  const { distributionSite = "1" } = params;
+  const { distributionSite = '1' } = params
   return httpInstance({
-    url: "/home/banner",
+    url: '/home/banner',
     params: {
-      distributionSite,
-    },
-  });
+      distributionSite
+    }
+  })
 }
 
 /**
@@ -27,8 +27,8 @@ export function getBannerAPI(params = {}) {
  */
 export function findNewAPI() {
   return httpInstance({
-    url: "/home/new",
-  });
+    url: '/home/new'
+  })
 }
 
 /**
@@ -38,8 +38,8 @@ export function findNewAPI() {
  */
 export function getHotAPI() {
   return httpInstance({
-    url: "/home/hot",
-  });
+    url: '/home/hot'
+  })
 }
 
 /**
@@ -49,6 +49,6 @@ export function getHotAPI() {
  */
 export function getGoodsAPI() {
   return httpInstance({
-    url: "/home/goods",
-  });
+    url: '/home/goods'
+  })
 }

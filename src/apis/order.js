@@ -1,4 +1,4 @@
-import request from "@/utils/http";
+import request from '@/utils/http'
 /*
 params: {
 	orderState:0,
@@ -7,10 +7,10 @@ params: {
 }
 */
 // 获取用户订单
-export const getUserOrderAPI = (params) => {
+export const getUserOrderAPI = params => {
   return request({
-    url: "/member/order",
-    method: "GET",
-    params,
-  });
-};
+    url: '/member/order',
+    method: 'GET',
+    params
+  })
+}

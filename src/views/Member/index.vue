@@ -68,7 +68,7 @@
         }
 
         &:before {
-          content: "";
+          content: '';
           display: none;
           width: 6px;
           height: 6px;

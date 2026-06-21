@@ -1,4 +1,7 @@
-// 重置样式
+@use '@/styles/var.scss' as *;
+
+@use '@/styles/element/index.scss' as *;
+
 * {
   box-sizing: border-box;
 }
@@ -13,15 +16,16 @@ body {
   color: #333;
   min-width: 1240px;
   font:
-    1em/1.4 "Microsoft Yahei",
-    "PingFang SC",
-    "Avenir",
-    "Segoe UI",
-    "Hiragino Sans GB",
-    "STHeiti",
-    "Microsoft Sans Serif",
-    "WenQuanYi Micro Hei",
+    1em/1.4 'Microsoft Yahei',
+    'PingFang SC',
+    'Avenir',
+    'Segoe UI',
+    'Hiragino Sans GB',
+    'STHeiti',
+    'Microsoft Sans Serif',
+    'WenQuanYi Micro Hei',
     sans-serif;
+  transition: color 0.3s;
 }
 
 body,
@@ -40,22 +44,24 @@ a {
   text-decoration: none;
   color: #333;
   outline: none;
+  transition: color 0.3s;
 }
 
 i {
   font-style: normal;
 }
 
-input[type="text"],
-input[type="search"],
-input[type="password"],
-input[type="checkbox"] {
+input[type='text'],
+input[type='search'],
+input[type='password'],
+input[type='checkbox'] {
   padding: 0;
   outline: none;
   border: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+
   &::placeholder {
     color: #ccc;
   }
@@ -65,7 +71,7 @@ img {
   max-width: 100%;
   max-height: 100%;
   vertical-align: middle;
-  background: #ebebeb url("@/assets/images/200.png") no-repeat center / contain;
+  background: #ebebeb url('@/assets/images/200.png') no-repeat center / contain;
 }
 
 ul {
@@ -74,9 +80,105 @@ ul {
 
 #app {
   background: #f5f5f5;
-  /* 添加工厂前缀，兼容Safari/iOS */
   -webkit-user-select: none;
   user-select: none;
+  transition: background-color 0.3s;
+}
+
+.dark #app {
+  background: #0f172b;
+}
+
+.dark body {
+  color: #e4e4e4;
+}
+
+.dark a {
+  color: #e4e4e4;
+}
+
+/* 分类页面暗黑模式 */
+.dark .top-category h3 {
+  color: #aaa;
+}
+
+.dark .top-category .sub-list {
+  background-color: #1e293b;
+}
+
+.dark .top-category .sub-list li a {
+  color: #e4e4e4;
+}
+
+.dark .top-category .ref-goods {
+  background-color: #1e293b;
+}
+
+.dark .top-category .ref-goods .head h3 {
+  color: #aaa;
+}
+
+/* 详情页面暗黑模式 */
+.dark .xtx-goods-page .goods-info {
+  background: #1e293b;
+}
+
+.dark .xtx-goods-page .goods-tabs {
+  background: #1e293b;
+}
+
+.dark .xtx-goods-page .goods-tabs nav {
+  border-bottom-color: #333;
+}
+
+.dark .xtx-goods-page .goods-tabs nav a {
+  color: #e4e4e4;
+}
+
+.dark .xtx-goods-page .goods-warn {
+  background: #1e293b;
+}
+
+.dark .xtx-goods-page .g-desc {
+  color: #999;
+}
+
+.dark .xtx-goods-page .g-service {
+  background: #334155;
+}
+
+.dark .xtx-goods-page .g-service dt {
+  color: #999;
+}
+
+.dark .xtx-goods-page .g-service dd {
+  color: #e4e4e4;
+}
+
+.dark .xtx-goods-page .goods-sales li ~ li::after {
+  border-left-color: #333;
+}
+
+.dark .xtx-goods-page .goods-sales li p:first-child {
+  color: #999;
+}
+
+.dark .xtx-goods-page .goods-sales li p:last-child {
+  color: #e4e4e4;
+}
+
+/* 购物车页面暗黑模式 */
+.dark .xtx-cart-page .cart {
+  background: #1e293b;
+  color: #e4e4e4;
+}
+
+.dark .xtx-cart-page .cart-none {
+  background: #1e293b;
+}
+
+.dark .xtx-cart-page .action {
+  background: #1e293b;
 }
 
 .container {
@@ -97,7 +199,6 @@ ul {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  /* 补充标准属性 */
   line-clamp: 2;
   overflow: hidden;
 }
@@ -111,7 +212,7 @@ ul {
 }
 
 .clearfix:after {
-  content: ".";
+  content: '.';
   display: block;
   visibility: hidden;
   height: 0;
@@ -119,7 +220,6 @@ ul {
   clear: both;
 }
 
-// reset element
 .el-breadcrumb__inner.is-link {
   font-weight: 400 !important;
 }

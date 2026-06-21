@@ -1,10 +1,10 @@
 <script setup>
-import GoodsItem from "@/views/Home/components/GoodsItem.vue";
-import { useBanner } from "./composables/useBanner";
-import { useCategory } from "./composables/useCategory";
+import GoodsItem from '@/views/Home/components/GoodsItem.vue'
+import { useBanner } from './composables/useBanner'
+import { useCategory } from './composables/useCategory'
 
-const { bannerList } = useBanner();
-const { categoryData } = useCategory();
+const { bannerList, loading: bannerLoading } = useBanner()
+const { categoryData, loading: categoryLoading } = useCategory()
 </script>
 
 <template>
@@ -12,40 +12,70 @@ const { categoryData } = useCategory();
     <div class="container m-top-20">
       <!-- 面包屑 -->
       <div class="bread-container">
-        <el-breadcrumb separator=">">
-          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item>{{ categoryData.name }}</el-breadcrumb-item>
-        </el-breadcrumb>
+        <el-skeleton :loading="categoryLoading" animated>
+          <template #template>
+            <el-skeleton-item variant="text" style="width: 200px" />
+          </template>
+          <template #default>
+            <el-breadcrumb separator=">">
+              <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+              <el-breadcrumb-item>{{ categoryData.name }}</el-breadcrumb-item>
+            </el-breadcrumb>
+          </template>
+        </el-skeleton>
       </div>
       <!-- 轮播图 -->
       <div class="home-banner">
-        <el-carousel height="500px">
-          <el-carousel-item v-for="item in bannerList" :key="item.id">
-            <img :src="item.imgUrl" alt="" />
-          </el-carousel-item>
-        </el-carousel>
+        <el-skeleton :loading="bannerLoading" animated>
+          <template #template>
+            <el-skeleton-item variant="image" style="width: 1240px; height: 500px" />
+          </template>
+          <template #default>
+            <el-carousel height="500px">
+              <el-carousel-item v-for="item in bannerList" :key="item.id">
+                <img :src="item.imgUrl" alt="" />
+              </el-carousel-item>
+            </el-carousel>
+          </template>
+        </el-skeleton>
       </div>
       <!-- 分类列表渲染 -->
-      <div class="sub-list">
-        <h3>全部分类</h3>
-        <ul>
-          <li v-for="i in categoryData.children" :key="i.id">
-            <RouterLink :to="`/category/sub/${i.id}`">
-              <img :src="i.picture" />
-              <p>{{ i.name }}</p>
-            </RouterLink>
-          </li>
-        </ul>
-      </div>
-      <div class="ref-goods" v-for="item in categoryData.children" :key="item.id">
-        <div class="head">
-          <h3>- {{ item.name }}-</h3>
-        </div>
-        <div class="body">
-          <GoodsItem v-for="good in item.goods" :goods="good" :key="good.id" />
-        </div>
-      </div>
+      <el-skeleton :loading="categoryLoading" animated>
+        <template #template>
+          <div class="sub-list">
+            <h3>全部分类</h3>
+            <ul class="skeleton-ul">
+              <li v-for="i in 8" :key="i">
+                <el-skeleton-item variant="image" style="width: 100px; height: 100px" />
+                <el-skeleton-item variant="text" style="width: 80px; margin-top: 10px" />
+              </li>
+            </ul>
+          </div>
+        </template>
+        <template #default>
+          <div class="sub-list">
+            <h3>全部分类</h3>
+            <ul>
+              <li v-for="i in categoryData.children" :key="i.id">
+                <RouterLink :to="`/category/sub/${i.id}`">
+                  <img :src="i.picture" />
+                  <p>{{ i.name }}</p>
+                </RouterLink>
+              </li>
+            </ul>
+          </div>
+          <div class="ref-goods" v-for="item in categoryData.children" :key="item.id">
+            <div class="head">
+              <h3>- {{ item.name }}-</h3>
+            </div>
+            <div class="body">
+              <GoodsItem v-for="good in item.goods" :goods="good" :key="good.id" />
+            </div>
+          </div>
+        </template>
+      </el-skeleton>
     </div>
+    <XtxBackTop />
   </div>
 </template>
 
@@ -126,6 +156,29 @@ const { categoryData } = useCategory();
     padding: 25px 0;
   }
 }
+
+html.dark .top-category {
+  h3 {
+    color: #aaa;
+  }
+
+  .sub-list {
+    background-color: #1e293b;
+
+    li a {
+      color: #e4e4e4;
+    }
+  }
+
+  .ref-goods {
+    background-color: #1e293b;
+
+    .head h3 {
+      color: #aaa;
+    }
+  }
+}
+
 .home-banner {
   width: 1240px;
   height: 500px;

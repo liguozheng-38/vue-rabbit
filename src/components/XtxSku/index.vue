@@ -4,11 +4,18 @@
       <dt>{{ item.name }}</dt>
       <dd>
         <template v-for="val in item.values" :key="val.name">
-          <img :class="{ selected: val.selected, disabled: val.disabled }" @click="clickSpecs(item, val)"
-            v-if="val.picture" :src="val.picture" />
-          <span :class="{ selected: val.selected, disabled: val.disabled }" @click="clickSpecs(item, val)" v-else>{{
-              val.name
-          }}</span>
+          <img
+            :class="{ selected: val.selected, disabled: val.disabled }"
+            @click="clickSpecs(item, val)"
+            v-if="val.picture"
+            :src="val.picture"
+          />
+          <span
+            :class="{ selected: val.selected, disabled: val.disabled }"
+            @click="clickSpecs(item, val)"
+            v-else
+            >{{ val.name }}</span
+          >
         </template>
       </dd>
     </dl>
@@ -19,7 +26,7 @@ import { watchEffect } from 'vue'
 import getPowerSet from './power-set'
 const spliter = '★'
 // 根据skus数据得到路径字典对象
-const getPathMap = (skus) => {
+const getPathMap = skus => {
   const pathMap = {}
   if (skus && skus.length > 0) {
     skus.forEach(sku => {
@@ -45,7 +52,7 @@ const getPathMap = (skus) => {
 }
 
 // 初始化禁用状态
-function initDisabledStatus (specs, pathMap) {
+function initDisabledStatus(specs, pathMap) {
   if (specs && specs.length > 0) {
     specs.forEach(spec => {
       spec.values.forEach(val => {
@@ -57,7 +64,7 @@ function initDisabledStatus (specs, pathMap) {
 }
 
 // 得到当前选中规格集合
-const getSelectedArr = (specs) => {
+const getSelectedArr = specs => {
   const selectedArr = []
   specs.forEach((spec, index) => {
     const selectedVal = spec.values.find(val => val.selected)
@@ -88,7 +95,6 @@ const updateDisabledStatus = (specs, pathMap) => {
   })
 }
 
-
 export default {
   name: 'XtxGoodSku',
   props: {
@@ -99,7 +105,7 @@ export default {
     }
   },
   emits: ['change'],
-  setup (props, { emit }) {
+  setup(props, { emit }) {
     let pathMap = {}
     watchEffect(() => {
       // 得到所有字典集合
@@ -114,7 +120,9 @@ export default {
       if (val.selected) {
         val.selected = false
       } else {
-        item.values.forEach(bv => { bv.selected = false })
+        item.values.forEach(bv => {
+          bv.selected = false
+        })
         val.selected = true
       }
       // 点击之后再次更新选中状态
@@ -180,14 +188,14 @@ export default {
       flex: 1;
       color: #666;
 
-      >img {
+      > img {
         width: 50px;
         height: 50px;
         margin-bottom: 4px;
         @include sku-state-mixin;
       }
 
-      >span {
+      > span {
         display: inline-block;
         height: 30px;
         line-height: 28px;
