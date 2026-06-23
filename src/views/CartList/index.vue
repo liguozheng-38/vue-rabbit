@@ -6,7 +6,7 @@ const cartStore = useCartStore()
 const singleCheck = (i, selected) => {
   // store cartList 数组 无法知道要修改谁的选中状态？
   // 除了selected补充一个用来筛选的参数 - (i.skuId)
-  console.log(i, selected)
+  // console.log(i, selected)
   cartStore.singleCheck(i.skuId, selected)
 }
 // 多选框

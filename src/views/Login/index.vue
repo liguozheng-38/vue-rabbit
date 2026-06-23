@@ -24,7 +24,7 @@ const rules = {
       validator: (rule, value, callback) => {
         // 自定义校验逻辑
         // 勾选就通过 不勾选就不通过
-        console.log(value)
+        // console.log(value)
         if (!value) {
           callback(new Error('请同意隐私条款和服务条款'))
         } else {
@@ -41,12 +41,12 @@ const doLogin = () => {
   const { account, password } = form.value
   // 调用实例方法
   formRef.value.validate(async valid => {
-    console.log(valid)
+    // console.log(valid)
     // valid: 所有表单都通过校验  才为true
     if (valid) {
       // to de login
       const res = await userStore.getUserInfo({ account, password })
-      console.log('@@@@@@@@@@@@@@', res)
+      // console.log('@@@@@@@@@@@@@@', res)
       // 1. 提示用户
       ElMessage({ type: 'success', message: '登录成功' })
       // 2. 跳转首页

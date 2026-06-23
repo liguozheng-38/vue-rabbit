@@ -42,16 +42,16 @@ module.exports = {
     }
   ],
   scopes: [
-    { name: 'components', value: '组件相关' },
-    { name: 'views', value: '视图相关' },
-    { name: 'router', value: '路由相关' },
-    { name: 'store', value: '状态管理' },
-    { name: 'utils', value: '工具函数' },
-    { name: 'api', value: '接口相关' },
-    { name: 'styles', value: '样式相关' },
-    { name: 'config', value: '配置相关' },
-    { name: 'common', value: '公共通用' },
-    { name: 'other', value: '其他' }
+    { value: 'components', name: 'components: 组件相关' },
+    { value: 'views', name: 'views: 视图相关' },
+    { value: 'router', name: 'router: 路由相关' },
+    { value: 'store', name: 'store: 状态管理' },
+    { value: 'utils', name: 'utils: 工具函数' },
+    { value: 'api', name: 'api: 接口相关' },
+    { value: 'styles', name: 'styles: 样式相关' },
+    { value: 'config', name: 'config: 配置相关' },
+    { value: 'common', name: 'common: 公共通用' },
+    { value: 'other', name: 'other: 其他' }
   ],
   allowTicketNumber: false,
   isTicketNumberRequired: false,

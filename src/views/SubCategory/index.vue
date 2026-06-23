@@ -35,7 +35,7 @@ onMounted(() => getGoodsList())
 
 // tab切换
 const tabChange = () => {
-  console.log('tab栏切换了', reqData.value.sortField)
+  // console.log('tab栏切换了', reqData.value.sortField)
   reqData.value.page = 1
   getGoodsList()
 }
