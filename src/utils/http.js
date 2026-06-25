@@ -31,7 +31,6 @@ httpInstance.interceptors.response.use(
   res => res.data,
   e => {
     const userStore = useUserStore()
-    //     console.log("wwwwwwwww",e.response);
     // /统一错误提示
     // ElMessage({ type:"error"，message:e.response?.data?.message });
     // if (e.response.status ===401){

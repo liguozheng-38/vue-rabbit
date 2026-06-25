@@ -9,7 +9,6 @@ const loading = ref(true)
 const getNewList = async () => {
   loading.value = true
   const res = await findNewAPI()
-  // console.log(res)
   newList.value = res.result
   loading.value = false
 }

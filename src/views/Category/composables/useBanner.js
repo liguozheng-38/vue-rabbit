@@ -10,7 +10,6 @@ export function useBanner() {
     loading.value = true
     // const route = useRoute();
     const res = await getBannerAPI({ distributionSite: 2 })
-    // console.log(res);
     bannerList.value = res.result
     loading.value = false
   }

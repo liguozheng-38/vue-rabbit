@@ -9,7 +9,6 @@ const loading = ref(true)
 const getHotList = async () => {
   loading.value = true
   const res = await getHotAPI()
-  // console.log(res)
   hotList.value = res.result
   loading.value = false
 }

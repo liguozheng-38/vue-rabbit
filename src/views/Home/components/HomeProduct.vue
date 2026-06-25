@@ -10,7 +10,6 @@ const loading = ref(true)
 const getGoodsProduct = async () => {
   loading.value = true
   const res = await getGoodsAPI()
-  // console.log(res)
   goodsProduct.value = res.result
   loading.value = false
 }

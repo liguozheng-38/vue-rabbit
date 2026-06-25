@@ -13,7 +13,6 @@ const getUserOrder = async () => {
   const res = await getUserOrderAPI(params)
   orderList.value = res.result.items
   total.value = res.result.counts
-  // console.log('@@@@@', orderList)
 }
 // tab列表
 const tabTypes = [
@@ -32,7 +31,6 @@ onMounted(() => {
 
 // tab切换
 const tabChange = e => {
-  // console.log(e)
   params.orderState = e
   // tab切换优化，重置页码
   params.page = 1

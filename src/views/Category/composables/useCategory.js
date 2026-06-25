@@ -10,7 +10,6 @@ export function useCategory() {
   const getCategoryData = async (id = route.params.id) => {
     loading.value = true
     const res = await getCategoryAPI(id)
-    // console.log(res);
     categoryData.value = res.result
     loading.value = false
   }
@@ -18,7 +17,6 @@ export function useCategory() {
   // 路由守卫，方式二（阻止组件复用）
   // 目标:路由参数变化的时候 可以把分类数据接口重新发送
   onBeforeRouteUpdate(to => {
-    // console.log('路由变化了')
     // console.log(to)
     // 存在问题：使用最新的路由参数请求最新的分类数据
     getCategoryData(to.params.id)

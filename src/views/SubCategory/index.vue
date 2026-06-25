@@ -27,7 +27,6 @@ const reqData = ref({
 const getGoodsList = async () => {
   goodsLoading.value = true
   const res = await getSubCategoryAPI(reqData.value)
-  // console.log("@@@@@@@@@@@@", res);
   GoodsList.value = res.result.items
   goodsLoading.value = false
 }
@@ -35,7 +34,6 @@ onMounted(() => getGoodsList())
 
 // tab切换
 const tabChange = () => {
-  // console.log('tab栏切换了', reqData.value.sortField)
   reqData.value.page = 1
   getGoodsList()
 }

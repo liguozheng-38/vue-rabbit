@@ -10,7 +10,6 @@ const router = useRouter()
 const dark = useDark()
 
 const confirm = () => {
-  // console.log('用户要退出登录了')
   userStore.clearUserInfo()
   router.push('/login')
 }

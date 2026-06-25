@@ -10,7 +10,6 @@ const getBanner = async () => {
   loading.value = true
   const route = useRoute()
   const res = await getBannerAPI({ distributionSite: route.params.distributionSite })
-  // console.log(res);
   bannerList.value = res.result
   loading.value = false
 }
