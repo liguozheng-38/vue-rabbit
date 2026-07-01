@@ -50,6 +50,7 @@ const confirm = () => {
           <li><router-link to="#footer">帮助中心</router-link></li>
           <li><router-link to="#footer">关于我们</router-link></li>
           <li>
+            暗黑模式
             <el-switch v-model="dark" inline-prompt active-icon="MoonNight" inactive-icon="Sunny" />
           </li>
         </template>

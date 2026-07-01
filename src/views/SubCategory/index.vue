@@ -1,7 +1,8 @@
 <script setup>
 import { getCategoryFilterAPI, getSubCategoryAPI } from '@/apis/category'
 import { useRoute } from 'vue-router'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
+import { useScroll } from '@vueuse/core'
 import GoodsItem from '@/views/Home/components/GoodsItem.vue'
 // 获取面包屑导航数据
 const filterData = ref({})
@@ -51,6 +52,15 @@ const load = async () => {
     disabled.value = true
   }
 }
+
+// useScroll 的 arrivedState.bottom 在滚动到距底部 offset.bottom 时变为 true
+const { arrivedState } = useScroll(window, { offset: { bottom: 700 } })
+watch(
+  () => arrivedState.bottom,
+  reached => {
+    if (reached && !disabled.value) load()
+  }
+)
 </script>
 
 <template>
@@ -81,21 +91,23 @@ const load = async () => {
       <el-skeleton :loading="goodsLoading" animated>
         <template #template>
           <div class="body skeleton-body">
-            <div v-for="i in 8" :key="i" class="skeleton-item">
+            <div v-for="i in 10" :key="i" class="skeleton-item">
               <el-skeleton-item variant="image" style="width: 160px; height: 160px" />
-              <el-skeleton-item variant="text" style="width: 80%; margin-top: 10px" />
-              <el-skeleton-item variant="text" style="width: 50%; margin-top: 8px" />
+              <el-skeleton-item variant="text" style="width: 80%; margin-top: 14px" />
+              <el-skeleton-item variant="text" style="width: 50%; margin-top: 14px" />
+              <el-skeleton-item variant="text" style="width: 40%; margin-top: 14px" />
             </div>
           </div>
         </template>
         <template #default>
-          <div class="body" v-infinite-scroll="load" :infinite-scroll-disabled="disabled">
+          <div class="body">
             <!-- 商品列表-->
             <GoodsItem v-for="good in GoodsList" :goods="good" :key="good.id" />
           </div>
         </template>
       </el-skeleton>
     </div>
+    <XtxBackTop />
   </div>
 </template>
 
@@ -146,10 +158,40 @@ const load = async () => {
     }
   }
 
+  /* 骨架屏卡片：尺寸与 .goods-item 完全对齐，保证 flex 布局下位置一致 */
+  .skeleton-item {
+    width: 220px;
+    margin-right: 20px;
+    padding: 20px 30px;
+    text-align: center;
+  }
+
   .pagination-container {
     margin-top: 20px;
     display: flex;
     justify-content: center;
+  }
+}
+
+/* 暗黑模式适配 */
+html.dark {
+  .bread-container {
+    color: #aaa;
+  }
+
+  .sub-container {
+    background-color: #1e293b;
+
+    /* 穿透 scoped 作用域，调整子组件 GoodsItem 的文字色，保证暗色背景上可读 */
+    :deep(.goods-item) {
+      .name {
+        color: #e4e4e4;
+      }
+
+      .desc {
+        color: #aaa;
+      }
+    }
   }
 }
 </style>
